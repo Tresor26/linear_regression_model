@@ -10,7 +10,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
 
-# ── Paths ────────────────────────────────────────────────────────────────────
+# Paths
 BASE_DIR  = os.path.dirname(os.path.abspath(__file__))
 MODEL_DIR = os.path.join(BASE_DIR, "..", "linear_regression")
 
@@ -20,13 +20,13 @@ LE_AREA_PATH  = os.path.join(MODEL_DIR, "le_area.pkl")
 LE_ITEM_PATH  = os.path.join(MODEL_DIR, "le_item.pkl")
 DATASET_PATH  = os.path.join(MODEL_DIR, "yield_df.csv")
 
-# ── Load artifacts at startup ─────────────────────────────────────────────────
+# Load artifacts at startup
 model    = joblib.load(MODEL_PATH)
 scaler   = joblib.load(SCALER_PATH)
 le_area  = joblib.load(LE_AREA_PATH)
 le_item  = joblib.load(LE_ITEM_PATH)
 
-# ── App ───────────────────────────────────────────────────────────────────────
+# App
 app = FastAPI(
     title="Crop Yield Prediction API",
     description=(
@@ -44,7 +44,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ── Schemas ───────────────────────────────────────────────────────────────────
+# Schemas
 class PredictionInput(BaseModel):
     area: str = Field(
         ...,
@@ -99,7 +99,7 @@ class RetrainResponse(BaseModel):
     r2_score: float
 
 
-# ── Endpoints ─────────────────────────────────────────────────────────────────
+# Endpoints
 @app.get("/", tags=["Health"])
 def root():
     """Health check — confirms the API is running."""
