@@ -39,9 +39,16 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=[
+        "https://linear-regression-model-eeak.onrender.com",
+        "http://localhost",
+        "http://localhost:8000",
+        "http://localhost:3000",
+        "http://10.0.2.2:8000",
+    ],
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type", "Authorization"],
 )
 
 # Schemas

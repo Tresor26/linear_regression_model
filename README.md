@@ -156,7 +156,22 @@ The API appends the new data to the existing dataset, retrains the Random Forest
 
 ### CORS Configuration
 
-CORS is set to `allow_origins=["*"]` so the API accepts requests from any origin. This is intentional — the Flutter app runs across Android, iOS, and web from different origins, and the Swagger UI also requires open access.
+CORS is configured with specific trusted origins rather than a wildcard, for security:
+
+```python
+allow_origins=[
+    "https://linear-regression-model-eeak.onrender.com",  # deployed API / Swagger UI
+    "http://localhost",
+    "http://localhost:8000",
+    "http://localhost:3000",
+    "http://10.0.2.2:8000",  # Android emulator → host machine
+]
+allow_credentials=True
+allow_methods=["GET", "POST"]
+allow_headers=["Content-Type", "Authorization"]
+```
+
+Only the methods and headers the API actually uses are allowed. `http://10.0.2.2:8000` is included to support the Flutter Android emulator reaching the local dev server.
 
 ### Run the API Locally
 
